@@ -9,7 +9,7 @@ mdl = M("model")
 rcgnzr = KR(mdl,16000)
 audio_queue = q.Queue()
 tts_engine = pt3.init()
-def callback(indata,status):
+def callback(indata,frames,time,status):
     if status:
         print(status)
     audio_queue.put(bytes(indata))
@@ -24,5 +24,5 @@ def process_query(query):
     else:
         rsp = "I\'m sorry, I didn\'t understand that."
     return rsp
-with sd.RawInputStream():
+with sd.RawInputStream(samplerate = 16000,blocksize = 8000,dtype = "int16",channels = 1,callback = callback):
     pass
