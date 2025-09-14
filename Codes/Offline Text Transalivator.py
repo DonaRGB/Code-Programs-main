@@ -21,8 +21,23 @@ def process_query(query):
     elif "date" in query:
         today = dt.datetime.now().strftime("%A, %B %d, %Y")
         rsp = f"Today is {today}."
+    elif "your name" in query:
+        rsp = "I am your voice assistant, powered by Python."
     else:
         rsp = "I\'m sorry, I didn\'t understand that."
-    return rsp
-with sd.RawInputStream(samplerate = 16000,blocksize = 8000,dtype = "int16",channels = 1,callback = callback):
-    pass
+    print(f"Response : {rsp}")
+    tts_engine.say(rsp)
+    tts_engine.runAndWait()
+def main():
+    print("Listening...Speak into your microphone.")
+    with sd.RawInputStream(samplerate = 16000,blocksize = 8000,dtype = "int16",channels = 1,callback = callback):
+        while True:
+            data = audio_queue.get()
+            if rcgnzr.AcceptWaveform(data):
+                rslt = rcgnzr.Result()
+                txt = json.loads(rslt).get("text","")
+                if txt:
+                    print(f"You said : {txt}")
+                    process_query(txt)
+if __name__ == "__main__":
+    main()
