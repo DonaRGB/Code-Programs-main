@@ -1,8 +1,8 @@
 import speech_recognition as sr
-import pyttsx3 as pytx3
-from googletrans import Translator as Trnsltr
+import pyttsx3 as ptx3
+from googletrans import Translator as T
 def speak(txt,language = "en"):
-    engine = pytx3.init()
+    engine = ptx3.init()
     engine.setProperty("rate",150)
     voices = engine.getProperty("voices")
     if language == "en":
@@ -12,10 +12,10 @@ def speak(txt,language = "en"):
     engine.say(txt)
     engine.runAndWait()
 def speech_to_text():
-    r = sr.Recognizer()
+    rcgnzr = sr.Recognizer()
     with sr.Microphone() as source:
-        print("??? Please speak now in English")
-        audio = r.listen(source)
+        print("??? Please speak now in English...")
+        audio = rcgnzr.listen(source)
     try:
         print("??? Recognizing speech... ")
         txt = r.recognize_google(audio,language = "en-US")
@@ -27,7 +27,7 @@ def speech_to_text():
         print(f"❌ API Error : {e}")
     return None
 def translate_text(txt,target_language = "es"):
-    translator = Trnsltr()
+    translator = T()
     translation = translator.translate(txt,target_language)
     print(f"??? Translated text : {translation.txt}")
     return translation.txt
