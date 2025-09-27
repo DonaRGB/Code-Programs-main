@@ -61,7 +61,7 @@ def gsr(prompt,temperature = 0.5):
         print(f"\nError generating stream response : {str(e)}")
 if __name__ == "__main__":
     tpa()
-    print("\n","-"*40,"\nBONUS : STREAMING RESPONSES\n","-"*40,"\nWOuld you like to see a streaming response? (y/n)")
+    print("\n","-"*40,"\nBONUS : STREAMING RESPONSES\n","-"*40,"\nWould you like to see a streaming response? (y/n)")
     a = str(input("> ")).lower.strip()
     if a == "y":
         prompt = input("\nEnter a prompt for streaming response : ")
