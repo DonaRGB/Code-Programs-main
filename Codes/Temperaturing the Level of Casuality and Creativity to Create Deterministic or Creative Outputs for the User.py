@@ -54,7 +54,7 @@ def gsr(prompt,temperature = 0.5):
         cntns = [gai.types.Content(role = "user",parts = [gai.types.Part.from_text(text = prompt)])]
         gcc = gai.types.GenerateContentConfig(temperature = temperature,response_mime_type = "text/plain")
         print("\nStreaming response (Press Ctrl + C to stop) :")
-        for chunk in c.model.generate_content_stream(models = "gemini-2.0-flash",contents = cntns,config = gcc):
+        for chunk in c.models.generate_content_stream(models = "gemini-2.0-flash",contents = cntns,config = gcc):
             print(chunk.text,end = "")
         print("\n")
     except Exception as e:
