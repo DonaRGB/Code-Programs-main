@@ -36,7 +36,7 @@ def tpa():
     ci = input("\nEnter your instruction-based prompt : ")
     try:
         ct = float(input("\nSet a temperature (0.1 - 1.0) : "))
-        if 0.1 < ct < 1.0:
+        if 0.1 <= ct <= 1.0:
             pass
         else:
             print("Invalid temperature. Using default 0.7.")
