@@ -62,7 +62,7 @@ def gsr(prompt,temperature = 0.5):
 if __name__ == "__main__":
     tpa()
     print("\n","-"*40,"\nBONUS : STREAMING RESPONSES\n","-"*40,"\nWould you like to see a streaming response? (y/n)")
-    a = str(input("> ")).lower.strip()
+    a = str(input("> ")).lower().strip()
     if a == "y":
         prompt = input("\nEnter a prompt for streaming response : ")
         gsr(prompt,0.7)
