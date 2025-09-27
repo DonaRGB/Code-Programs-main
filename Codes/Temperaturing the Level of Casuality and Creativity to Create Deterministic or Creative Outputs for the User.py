@@ -6,8 +6,8 @@ def generate_responses(prompt,temperature = 0.5):
     try:
         c = gai.Client(api_key = GAK)
         cntns = [gai.types.Content(role = "user",parts = [gai.types.Part.from_text(text = prompt)])]
-        gcc = c.model.GenerateContentConfig(temperature = temperature,response_mime_type = "text/plain")
-        rsp = c.model.generate_content(model = "gemini-2.0-flash",contents = cntns,config = gcc)
+        gcc = gai.types.GenerateContentConfig(temperature = temperature,response_mime_type = "text/plain")
+        rsp = c.models.generate_content(model = "gemini-2.0-flash",contents = cntns,config = gcc)
         return rsp.text
     except Exception as e:
         return f"Error generating response : {str(e)}"
@@ -36,7 +36,7 @@ def tpa():
     ci = input("\nEnter your instruction-based prompt : ")
     try:
         ct = float(input("\nSet a temperature (0.1 - 1.0) : "))
-        if 1.0 < ct < 0.1:
+        if 0.1 < ct < 1.0:
             pass
         else:
             print("Invalid temperature. Using default 0.7.")
@@ -52,9 +52,9 @@ def gsr(prompt,temperature = 0.5):
     try:
         c = gai.Client(api_key = GAK)
         cntns = [gai.types.Content(role = "user",parts = [gai.types.Part.from_text(text = prompt)])]
-        gcc = c.model.GenerateContentConfig(temperature = temperature,response_mime_type = "text/plain")
+        gcc = gai.types.GenerateContentConfig(temperature = temperature,response_mime_type = "text/plain")
         print("\nStreaming response (Press Ctrl + C to stop) :")
-        for chunk in c.model.generate_content_stream(model = "gemini-2.0-flash",contents = cntns,config = gcc):
+        for chunk in c.model.generate_content_stream(models = "gemini-2.0-flash",contents = cntns,config = gcc):
             print(chunk.text,end = "")
         print("\n")
     except Exception as e:
