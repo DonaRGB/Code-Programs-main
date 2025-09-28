@@ -70,7 +70,7 @@ def rq():
         crt = html.unescape(q["correct_answer"])
         icrt = [html.unescape(fa) for fa in q["incorrect_answers"]]
         o = icrt + [crt]
-        for i in range(rd.randint(rd.randint(1,50)),rd.randint(51,100)):
+        for i in range(rd.randint(rd.randint(1,12)),rd.randint(13,25)):
             rd.shuffle(o)
         print(f"\nQuestion {i}. {qt}")
         for idx,opt in enumerate(o,1):
