@@ -148,7 +148,7 @@ def find_best_thresh_v2(preds, scores, na_probs, qid_to_has_ans):
     best_score = cur_score
     best_thresh = 0.0
     qid_list = sorted(na_probs, key=lambda k: na_probs[k])
-    for qid in qid_list:
+    for i, qid in enumerate(qid_list):
         if qid not in scores:
             continue
         if qid_to_has_ans[qid]:
