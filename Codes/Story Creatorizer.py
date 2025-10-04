@@ -11,6 +11,6 @@ def generate_responses(prompt,temperature = 0.5):
         return f"Error generating response : {str(e)}"
 def main():
     prompt = input("Enter an idea for a story :\n  -> ")
-    story = generate_responses(prompt,0.9)
-    print(story)
+    story = generate_responses(f"Create a story of {prompt}",0.9)
+    print("\n\n",story)
 main()
