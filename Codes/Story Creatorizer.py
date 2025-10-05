@@ -12,7 +12,7 @@ def generate_responses(prompt,temperature = 0.5):
 def main():
     prompt = input("Enter an idea for a story :\n  -> ")
     story = generate_responses(f"Create a story of {prompt}",0.9)
-    print("\n\n",story)
+    print("\n",story)
 import cv2
 print("To continue, just click a button except 'q' or the Esc key.")
 while True:
