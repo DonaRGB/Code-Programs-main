@@ -13,4 +13,12 @@ def main():
     prompt = input("Enter an idea for a story :\n  -> ")
     story = generate_responses(f"Create a story of {prompt}",0.9)
     print("\n\n",story)
-main()
+import cv2
+print("To continue, just click a button except 'q' or the Esc key.")
+while True:
+    k = cv2.waitKey(0)
+    if k in [27,ord("q")]:
+        break
+    else:
+        print("\n")
+        main()
