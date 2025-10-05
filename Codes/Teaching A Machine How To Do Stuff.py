@@ -1,6 +1,7 @@
-from config import GEMINI_API_KEY as GAK
+import os
 from google import genai as gai
-def generate_responses(prompt,temperature = 0.5):
+from config import GEMINI_API_KEY as GAK
+def generate_responses(prompt,temperature = 0.3):
     try:
         c = gai.Client(api_key = GAK)
         cntns = [gai.types.Content(role = "user",parts = [gai.types.Part.from_text(text = prompt)])]
@@ -9,12 +10,5 @@ def generate_responses(prompt,temperature = 0.5):
         return rsp.text
     except Exception as e:
         return f"Error generating response : {str(e)}"
-def main():
-    prompt = input("Enter an idea for a story :\n  -> ")
-    story = generate_responses(f"Create a story of {prompt}",0.9)
-    print("\n",story)
-import cv2
-print("To continue, just click a button except 'q' or the Esc key.")
-while True:
-    print("\n")
-    main()
+def reinforcement_learning_activity():
+    pass
