@@ -196,27 +196,57 @@ def multiply_all(*args:U[int,float,Decimal,Fraction]):
         the_product = i * the_product
     return the_product
 import numbers
-def lcm(**args):
+def lcm(*args):
     nums = []
     for arg in args:
-        if type(arg) != numbers.Real:
+        if type(arg) not in [numbers.Real,Real] or type(arg) in [str,bool,complex]:
             raise Exception("The function only works with numbers.")
+            return
+        if arg <= 0:
+            raise Exception("The numbers cannot be zero or below.")
             return
         nums.append(arg)
     multiple = max(nums)
     is_divisible = True
+    nums_divisible = []
     while is_divisible:
         for i in nums:
             if multiple % i != 0:
                 multiple += 1
                 continue
+            else:
+                nums_divisible.append(i)
+        if len(nums_divisible) == len(nums):
+            pass
+        else:
+            nums_divisible = []
+            continue
         is_divisible = False
     return multiple
-def  gcf(**args):
+def  gcf(*args):
     nums = []
     for arg in args:
-        if type(arg) != numbers.Real:
+        if type(arg) not in [numbers.Real,Real] or type(arg) in [str,bool,complex]:
             raise Exception("The function only works with numbers.")
             return
+        if arg <= 0:
+            raise Exception("The numbers cannot be zero or below.")
+            return
         nums.append(arg)
-    factor = max()
+    factor = max(nums)
+    is_divisible = True
+    nums_divisible = []
+    while is_divisible:
+        for i in nums:
+            if i % factor != 0:
+                factor -= 1
+                continue
+            else:
+                nums_divisible.append(i)
+        if len(nums_divisible) == len(nums):
+            pass
+        else:
+            nums_divisible = []
+            continue
+        is_divisible = False
+    return factor
