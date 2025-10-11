@@ -14,7 +14,6 @@ def main():
     story = generate_responses(f"Create a story of {prompt}",0.9)
     print("\n",story)
 import cv2
-print("To continue, just click a button except 'q' or the Esc key.")
+print("To exit, press Ctrl+C.")
 while True:
-    print("\n")
     main()
