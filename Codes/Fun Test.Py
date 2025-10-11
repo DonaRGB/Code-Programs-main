@@ -195,3 +195,28 @@ def multiply_all(*args:U[int,float,Decimal,Fraction]):
             raise TypeError(f"Expected Real, got {type(i).__name__} instead.")
         the_product = i * the_product
     return the_product
+import numbers
+def lcm(**args):
+    nums = []
+    for arg in args:
+        if type(arg) != numbers.Real:
+            raise Exception("The function only works with numbers.")
+            return
+        nums.append(arg)
+    multiple = max(nums)
+    is_divisible = True
+    while is_divisible:
+        for i in nums:
+            if multiple % i != 0:
+                multiple += 1
+                continue
+        is_divisible = False
+    return multiple
+def  gcf(**args):
+    nums = []
+    for arg in args:
+        if type(arg) != numbers.Real:
+            raise Exception("The function only works with numbers.")
+            return
+        nums.append(arg)
+    factor = max()
