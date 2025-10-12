@@ -17,7 +17,7 @@ def main():
     prompt = input(f"{F.BLUE}Enter an idea for a story :{S.RESET_ALL}\n  -> ")
     story = generate_responses(f"Create a story of {prompt}",0.9)
     print("\n",f"{F.LIGHTCYAN_EX}{story}{S.RESET_ALL}")
-print("To exit, press Ctrl+C.\n")
+print(f"{F.RED}To exit, press Ctrl+C.{S.RESET_ALL}\n")
 while True:
     try:
         main()
