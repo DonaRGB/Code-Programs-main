@@ -200,7 +200,7 @@ def lcm(*args):
     nums = []
     for arg in args:
         if type(arg) not in [int] or type(arg) in [str,bool,complex,float]:
-            raise Exception("The function only works with numbers.")
+            raise Exception("The function only works with integers.")
             return
         if arg <= 0:
             raise Exception("The numbers cannot be zero or below.")
@@ -227,7 +227,7 @@ def  gcf(*args):
     nums = []
     for arg in args:
         if type(arg) not in [int] or type(arg) in [str,bool,complex,float]:
-            raise Exception("The function only works with numbers.")
+            raise Exception("The function only works with integers.")
             return
         if arg <= 0:
             raise Exception("The numbers cannot be zero or below.")
