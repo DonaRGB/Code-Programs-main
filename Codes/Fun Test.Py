@@ -199,7 +199,7 @@ import numbers
 def lcm(*args):
     nums = []
     for arg in args:
-        if type(arg) not in [int,float] or type(arg) in [str,bool,complex]:
+        if type(arg) not in [int] or type(arg) in [str,bool,complex,float]:
             raise Exception("The function only works with numbers.")
             return
         if arg <= 0:
@@ -226,7 +226,7 @@ def lcm(*args):
 def  gcf(*args):
     nums = []
     for arg in args:
-        if type(arg) not in [int,float] or type(arg) in [str,bool,complex]:
+        if type(arg) not in [int] or type(arg) in [str,bool,complex,float]:
             raise Exception("The function only works with numbers.")
             return
         if arg <= 0:
