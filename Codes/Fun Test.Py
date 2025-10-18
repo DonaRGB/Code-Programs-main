@@ -156,7 +156,7 @@ def country_order_randomizer():
             break
         else:
             the_str += str(c)+","
-    return randlist,the_str,times
+    return randlist,the_str
 def nth_prime(nth:int):
     if not isinstance(nth,int):
         raise TypeError(f"Expected int, got {type(nth).__name__} instead.")
