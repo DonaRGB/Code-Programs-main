@@ -151,7 +151,7 @@ def country_order_randomizer():
         shuffle(randlist)
     the_str = ""
     for c in randlist:
-        if c == randlist(len(randlist)-1):
+        if c == randlist[len(randlist)-1]:
             the_str += str(c)
             break
         else:
