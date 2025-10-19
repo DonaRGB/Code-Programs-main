@@ -60,6 +60,6 @@ def run_activity():
     print(f"{F.CYAN}\nWelcome to AI Writing Assistant!")
     details = get_essay_details()
     generate_essay_content(details)
-    fedback_and_refinement()
+    feedback_and_refinement()
 if __name__ == "__main__":
     run_activity()
