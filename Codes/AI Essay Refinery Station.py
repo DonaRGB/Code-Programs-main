@@ -45,7 +45,7 @@ def generate_essay_content(details):
         body_step = generate_responses(body_step_prompt,temperature)
         print(f"{F.CYAN}\n=== Generated Step-by-Step Body ===")
         print(f"{F.GREEN}{body_step}")
-    conclusion_prompt = input(f"{F.YELLOW}Write a conclusion prompt for a/an {details['essay_type']} essay about {details['topic']} with topic of {details['stance']}.")
+    conclusion_prompt = f"{F.YELLOW}Write a conclusion prompt for a/an {details['essay_type']} essay about {details['topic']} with topic of {details['stance']}."
     conclusion = generate_responses(conclusion_prompt,temperature)
     print(f"{F.CYAN}\n=== Generated Conclusion ===")
     print(f"{F.GREEN}{conclusion}")
