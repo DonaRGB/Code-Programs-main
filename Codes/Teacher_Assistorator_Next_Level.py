@@ -25,7 +25,7 @@ def setup_ui():
     with col_export:
         if st.session_state.history:
             export_text = ""
-            for idx,qa in enumerate(st.session_state,start = 1):
+            for idx,qa in enumerate(st.session_state.history,start = 1):
                 export_text += f"Q{idx} : {qa['question']}\n"
                 export_text += f"A{idx} : {qa['answer']}\n\n"
             bio = io.BytesIO()
