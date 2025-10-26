@@ -21,7 +21,7 @@ def setup_ui():
     with col_clear:
         if st.button("????? Clear Conversation"):
             st.session_state.history = []
-            st.experimental_rerun()
+            st.rerun()
     with col_export:
         if st.session_state.history:
             export_text = ""
