@@ -140,7 +140,7 @@ def setup_ui():
         total_questions = len(st.session_state.history)
         for idx,qa in enumerate(st.session_state.history):
             q_num = total_questions - idx
-            difficulty_badge = f'<span class = "difficulty>{qa.get("difficulty","N/A")}</span>"' if "difficulty" in qa else ""
+            difficulty_badge = f'<span class = "difficulty">{qa.get("difficulty","N/A")}</span>"' if "difficulty" in qa else ""
             history_html += f'<div class="question">Problem {q_num} : {qa["question"]}{difficulty_badge}</div>'
             history_html += f'<div class="answer">Solution {q_num} : {qa["answer"]}</div>'
         history_html += '</div>'
