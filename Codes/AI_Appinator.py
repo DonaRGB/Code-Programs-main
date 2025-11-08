@@ -7,13 +7,13 @@ from io import BytesIO as BIO
 import io
 c = gai.Client(api_key = GAK)
 def run_ai_teaching_assistant():
-    st.title("????? AI Teaching Assistant")
+    st.title("🤖 AI Teaching Assistant")
     st.write("Ask me anything about various subjects , and I\'ll provide an insightful answer.")
     if "history_ata" not in st.session_state:
         st.session_state.history_ata = []
     col_clear,col_export = st.columns([1,2])
     with col_clear:
-        if st.button("????? Clear Conversation",key = "clear_ata"):
+        if st.button("🧹 Clear Conversation",key = "clear_ata"):
             st.session_state.history_ata = []
             st.rerun()
     with col_export:
@@ -26,7 +26,7 @@ def run_ai_teaching_assistant():
             bio.write(export_text.encode("utf-8"))
             bio.seek(0)
             st.download_button(
-                label = "????? Export Chat History",
+                label = "📥 Export Chat History",
                 data = bio,
                 file_name = "AI_Teaching_Assistant_Conversation.txt",
                 mime = "text/plain"
@@ -83,3 +83,120 @@ def generate_math_rsp(prompt,temperature = 0.1):
         return rsp.text
     except Exception as e:
         return f"Error generating response : {str(e)}"
+def run_math_mastermind():
+    st.title("🧮 Math Mastermind")
+    st.write("**Your Expert Mathematical Problem Solver** - From basic arithmetic to advanced calculus, I'll solve any math problem with detailed step-by-step explainations!")
+    if "history_mm" not in st.session_state:
+        st.session_state.history_mm = []
+    if "input_key_mm" not in st.session_state:
+        st.session_statee.input_key_mm = 0
+    col_clear,col_export = st.columns([1,2])
+    with col_clear:
+        if st.button("🧹 Clear Conversation",key = "clear_mm"):
+            st.session_state.history_mm = []
+            st.experimental_rerun()
+    with col_export:
+        if st.session_state.history_mm:
+            export_text = ""
+            for idx,qa in enumerate(st.session_state.history_mm,start = 1):
+                export_text += f"Q{idx} : {qa['question']}\n"
+                export_text += f"A{idx} : {qa['answer']}\n\n"
+            bio = io.BytesIO()
+            bio.write(export_text.encode("utf-8"))
+            bio.seek(0)
+            st.download_button(
+                label = "📥 Export Math Solutions",
+                data = bio,
+                file_name = "Math_Mastermind_Solutions.txt",
+                mime = "text/plain"
+            )
+    with st.form(key = "math_form",clear_on_submit = True):
+        ui = st.text_area("🔢 Enter your math problem here :",height = 100,placeholder = "Example : Solve x² + 5x + 6 = 0 or Find the integral of 2x + 3",key = f"user_input_{st.session_state.input_key_mm}")
+        col1,col2 = st.columns([3,1])
+        with col1:
+            submitted = st.form_submit_button("🧮 Solve Problem",use_container_width = True)
+        with col2:
+            difficulty = st.selectbox("Level",["Basic","Intermediate","Advanced"],index = 1)
+        if submitted and ui.strip():
+            enhanced_prompt = f"[{difficulty} Level] {ui.strip()}"
+            with st.spinner("🔍 Analyzing and solving your math problem..."):
+                rsp = generate_math_rsp(enhanced _prompt)
+            st.session_state.history_mm.insert(0,{
+                "question":ui.strip(),
+                "answer":rsp,
+                "difficulty":difficulty
+            })
+            st.session_state.input_key += 1
+            st.rerun()
+        elif submitted and not ui.strip():
+            st.warning("⚠️ Please enter a math problem before clicking Solve Problem.")
+    if st.session_state.history_mm:
+        st.markdown("### 📋 Solution History (Latest First)")
+        for idx,qa in enumerate(st.session_state.history_mm):
+            q_num = len(st.session_state.history_mm) - idx
+            difficulty_badge = f'[{qa.get("difficulty","N/A")}]'
+            st.markdown(f'**Problem {q_num} {difficulty_badge} :** {qa["question"]}')
+            st.markdown(f'**Solution {q_num} :**\n{qa["answer"]}')
+def run_safe_ai_image_generator():
+    st.title("🎨 Safe AI Image Generator")
+    st.write("Enter a description to generate a safe and responsible AI image using Gemini 2.0 Flash.")
+    def is_prompt_safe(prompt:str) -> bool:
+        forbidden_keywords = ["violence","weapon","gun","blood","nude","porn","drugs","hate","racism","sex","terror","bomb","abuse","kill","death","suicide","self-harm","hate speech"]
+        pattern = re.compile("|".join(forbidden_keywords),re.IGNORECASE)
+        return not bool(pattern.search(prompt))
+    def generate_images(prompt:str):
+        if not is_prompt_safe(prompt):
+            return None,"⚠️ Your prompt contains restricted or unsafe content. Please modify and try again."
+        try:
+            model = "gemini-2.0-flash-preview-image-generation"
+            cntns = [gai.types.Content(role = "user",parts = [gai.types.Part.from_text(text = prompt)])]
+            gcc = gai.types.GenerateContentConfig(response_modalities = ["IMAGE","TEXT"],response_mime_type = "text/plain")
+            for chunk in c.models.generate_content_stream(
+                model = model,
+                contents = cntns,
+                config = gcc
+            ):
+                if (chunk.candidates is None or chunk.candidates[0].content is None or chunk.candidates[0].content.parts is None):
+                    continue
+                if (chunk.candidates[0].content.parts[0].inline_data and chunk.candidates[0].content.parts[0].inline_data.data):
+                    inline_data = chunk.candidates[0].content.parts[0].inline_data
+                    data_buffer = inline_data.data
+                    img = I.open(BIO(data_buffer))
+                    return img,None
+                elif chunk.text:
+                    continue
+            return None,"No image was generated in the response."
+        except Exception as e:
+            return None,f"Error during image generation : {str(e)}"
+    with st.form(key = "image_gen_form"):
+        prompt = st.text_area("Image Description",height = 120,placeholder = "Describe the image you want to generate...Be specific for better results!")
+        submit = st.form_submit_button("Generate Image")
+        if submit:
+            if not prompt.strip():
+                st.warning("⚠️ Please enter an image decription")
+            else:
+                with st.spinner("Generating image...This may take a few moments"):
+                    img,error = generate_images(prompt.strip())
+                if error:
+                    st.error(error)
+                elif img:
+                    st.image(img,caption = "Generated Image",use_container_width = True)
+                    st.session_state.generated_image = img
+                else:
+                    st.error("Failed to generate image. Please try again with a different prompt.")
+    if "generated_image" in st.session_state and st.session_state.generated_image:
+        buf = BIO()
+        st.session_state.generated_image.save(buf,format = "PNG")
+        byte_im = buf.getvalue()
+        st.download_button(label = "????? Download Generated Image",data = byte_im,file_name = "ai_generated_image.png",mime = "image/png",help = "Click to download the generated image")
+def main():
+    st.sidebar.title("Choose AI Feature")
+    option = st.sidebar.selectbox("",["AI Teaching Assistant","Math Mastermind","Safe AI Image Generator"])
+    if option == "AI Teaching Assistant":
+        run_ai_teaching_assistant()
+    elif option == "Math Mastermind":
+        run_math_mastermind()
+    elif option == "Safe AI Image Generator":
+        run_safe_ai_image_generator()
+if __name__ == "__main__":
+    main()
