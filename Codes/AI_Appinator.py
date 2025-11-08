@@ -37,7 +37,7 @@ def run_ai_teaching_assistant():
                 with st.spinner("Generating AI Response..."):
                     rsp = generate_responses(ui.strip(),0.3)
                 st.session_state.history_ata.append({"question":ui.strip(),"answer":rsp})
-                st.experimental_rerun()
+                st.rerun()
             else:
                 st.warning("⚠️ Please enter a question before clicking Ask.")
         st.markdown("### Conversation History")
@@ -94,7 +94,7 @@ def run_math_mastermind():
     with col_clear:
         if st.button("🧹 Clear Conversation",key = "clear_mm"):
             st.session_state.history_mm = []
-            st.experimental_rerun()
+            st.rerun()
     with col_export:
         if st.session_state.history_mm:
             export_text = ""
