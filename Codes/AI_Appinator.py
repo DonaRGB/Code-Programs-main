@@ -120,7 +120,7 @@ def run_math_mastermind():
         if submitted and ui.strip():
             enhanced_prompt = f"[{difficulty} Level] {ui.strip()}"
             with st.spinner("🔍 Analyzing and solving your math problem..."):
-                rsp = generate_math_rsp(enhanced _prompt)
+                rsp = generate_math_rsp(enhanced_prompt)
             st.session_state.history_mm.insert(0,{
                 "question":ui.strip(),
                 "answer":rsp,
