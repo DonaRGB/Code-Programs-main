@@ -89,7 +89,7 @@ def run_math_mastermind():
     if "history_mm" not in st.session_state:
         st.session_state.history_mm = []
     if "input_key_mm" not in st.session_state:
-        st.session_statee.input_key_mm = 0
+        st.session_state.input_key_mm = 0
     col_clear,col_export = st.columns([1,2])
     with col_clear:
         if st.button("🧹 Clear Conversation",key = "clear_mm"):
