@@ -126,7 +126,7 @@ def run_math_mastermind():
                 "answer":rsp,
                 "difficulty":difficulty
             })
-            st.session_state.input_key += 1
+            st.session_state.input_key_mm += 1
             st.rerun()
         elif submitted and not ui.strip():
             st.warning("⚠️ Please enter a math problem before clicking Solve Problem.")
