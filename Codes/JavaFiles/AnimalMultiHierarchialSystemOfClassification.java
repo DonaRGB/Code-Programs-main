@@ -13,7 +13,7 @@ class BabyLion extends Lion {
         System.out.println("weeping...BabyLion class...weep method");
     }
 }
-public class AnimalMultiHierarchaialSystemOfClassification {
+public class AnimalMultiHierarchialSystemOfClassification {
     public static void main(String[] args) {
         BabyLion obj = new BabyLion();
         obj.weep();
