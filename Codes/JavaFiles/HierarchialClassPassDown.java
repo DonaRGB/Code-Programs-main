@@ -14,6 +14,6 @@ public class HierarchialClassPassDown {
     public static void main(String[] args) {
         Child s = new Child();
         s.naming("Bob");
-        s.age(12);
+        s.ageN(12);
     }
 }
