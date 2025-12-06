@@ -15,6 +15,11 @@ class Human extends Mammals {
 }
 public class MammalBranchingSystemForClasses {
     public static void main(String[] args) {
-        
+        Lion obj = new Lion();
+        Human person = new Human();
+        obj.roar();
+        obj.mam();
+        person.hum();
+        person.mam();
     }
 }
