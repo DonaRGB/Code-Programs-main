@@ -3,7 +3,7 @@ class Mammals {
         System.out.println("Inside Mammal Class");
     }
 }
-class Lion extends Mammals {
+class Lions extends Mammals {
     void roar() {
         System.out.println("Inside Lion Class");
     }
@@ -15,7 +15,7 @@ class Human extends Mammals {
 }
 public class MammalBranchingSystemForClasses {
     public static void main(String[] args) {
-        Lion obj = new Lion();
+        Lions obj = new Lions();
         Human person = new Human();
         obj.roar();
         obj.mam();
