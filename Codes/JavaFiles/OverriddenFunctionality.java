@@ -6,7 +6,7 @@ class Parent {
 class Child extends Parent {
     @Override
     public void sayHello() {
-        SYstem.out.println("Hello From Child");
+        System.out.println("Hello From Child");
     }
 }
 public class OverriddenFunctionality {
