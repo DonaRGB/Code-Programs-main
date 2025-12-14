@@ -223,30 +223,82 @@ def lcm(*args):
             continue
         is_divisible = False
     return multiple
-def  gcf(*args):
-    nums = []
-    for arg in args:
-        if type(arg) not in [int] or type(arg) in [str,bool,complex,float]:
-            raise Exception("The function only works with integers.")
-            return
-        if arg <= 0:
-            raise Exception("The numbers cannot be zero or below.")
-            return
-        nums.append(arg)
-    factor = max(nums)
-    is_divisible = True
-    nums_divisible = []
-    while is_divisible:
-        for i in nums:
-            if i % factor != 0:
-                factor -= 1
-                continue
-            else:
-                nums_divisible.append(i)
-        if len(nums_divisible) == len(nums):
-            pass
+def gcf(*args):
+    if not args:
+        raise Exception("There are no numbers. Please add some.")
+    result = args[0]
+    if not isinstance(result,int) or isinstance(result,bool) or result <= 0:
+        raise Exception("All numbers must be postive integers.")
+    for n in args:
+        if not isinstance(n,int) or isinstance(n,bool) or n <= 0:
+            raise Exception("All numbers must be postive integers.")
+        a,b = result,n
+        while b != 0:
+            a,b = b,a % b
+        result = a
+    return result
+def farey_algorithm_mechanism(dec : float):
+    from numbers import Real as Real
+    from decimal import Decimal as Decimal
+    from math import log10 as log
+    from math import floor as mf
+    from time import sleep as sleep
+    lownum = 0
+    lowden = 1
+    highnum = 1
+    highden = 1
+    decpart = Decimal(str(dec))
+    tempdec = Decimal(str(dec))
+    sign = 1
+    mednum = 0
+    medden = 0
+    dtk = -1 *(mf(log(decpart))) - 1
+    decpart *= 10 ** dtk
+    try:
+        _ = tempdec < 0
+        _ = tempdec + tempdec
+    except TypeError:
+        raise Exception("The number is not a number.")
+    if tempdec < 0:
+        sign = -1
+        tempdec *= -1
+    elif tempdec > 1:
+        decpart = Decimal(str(tempdec - int(tempdec)))
+    elif tempdec == 1:
+        return 1,1,0,sign
+    elif tempdec == 0:
+        return 0,1,0,sign
+    while True:
+        mednum = lownum + highnum
+        medden = lowden + highden
+        if mednum == decpart * medden:
+            return mednum,(medden * (10**dtk)),int(dec),sign
         else:
-            nums_divisible = []
-            continue
-        is_divisible = False
-    return factor
+            if mednum < decpart * medden:
+                lownum = mednum
+                lowden = medden
+            elif mednum > decpart * medden:
+                highnum = mednum
+                highden = medden
+        #print(f"{mednum} / {medden} = {mednum/medden}\n{decpart}\n")
+def farey_algorithm(dec : float):
+    outs = farey_algorithm_mechanism(dec)
+    num = outs[0]
+    den = outs[1]
+    whole = outs[2]
+    sign = outs[3]
+    gcfonad = gcf(num,den)
+    num /= gcfonad
+    den /= gcfonad
+    num += (whole * den)
+    num *= sign
+    return int(num),int(den)
+def farey_algorithm_show():
+    from decimal import Decimal as Decimal
+    try:
+        dec = input("Enter a decimal number : ")
+    except ValueError as e:
+        raise Exception(f"Error : Input not number\n\n{e}\n------------------------------------------")
+    num,den = farey_algorithm(Decimal(dec))
+    print(f"{num} / {den} = {dec}")
+farey_algorithm_show()
