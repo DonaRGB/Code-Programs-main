@@ -301,4 +301,3 @@ def farey_algorithm_show():
         raise Exception(f"Error : Input not number\n\n{e}\n------------------------------------------")
     num,den = farey_algorithm(Decimal(dec))
     print(f"{num} / {den} = {dec}")
-farey_algorithm_show()
