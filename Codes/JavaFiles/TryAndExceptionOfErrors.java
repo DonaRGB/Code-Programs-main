@@ -4,8 +4,8 @@ public class TryAndExceptionOfErrors {
         Scanner scn = new Scanner(System.in);
         try {
             System.out.println("Enter two numbers :");
-            int x = sc.nextInt();
-            int y = sc.nextInt();
+            int x = scn.nextInt();
+            int y = scn.nextInt();
             int z = x / y;
             System.out.println(x + " / " + y + " = " + z);
         } catch (ArithmeticException ex) {
