@@ -301,3 +301,40 @@ def farey_algorithm_show():
         raise Exception(f"Error : Input not number\n\n{e}\n------------------------------------------")
     num,den = farey_algorithm(Decimal(dec))
     print(f"{num} / {den} = {dec}")
+def absolute_value(value):
+    if value >= 0:
+        return value
+    else:
+        return value * -1
+def babylonian_square_root_method(root,estimation_assurance = 5):
+    n = 1
+    while n*n < root:
+        n += 1
+    low_root = (n - 1) ** 2
+    high_root = n * n
+    estimate_root = 0
+    if absolute_value(high_root - root) < absolute_value(root - low_root):
+        estimate_root = n
+    else:
+        estimate_root = n - 1
+    b = root - (estimate_root ** 2)
+    x = b / (2 * estimate_root)
+    root_calc = estimate_root + x
+    for i in range(0,estimation_assurance):
+        estimate_root = root_calc
+        b = root - (estimate_root ** 2)
+        x = b / (2 * estimate_root)
+        root_calc = estimate_root+x
+        #print(f"Estimate Root : {estimate_root}\nRoot Calculated : {root_calc}\nX : {x}\n")
+    return estimate_root
+def error_calculation(value_gotten,true_value,is_percentage = True):
+    error_value = absolute_value(value_gotten - true_value) / absolute_value(true_value)
+    if is_percentage:
+        return str(error_value * 100) + "%"
+    else:
+        return error_value
+def test_babylonian_method(num,error_is_percent_or_not = True):
+    from math import sqrt as sqrt
+    bsrm = babylonian_square_root_method(num)
+    rr = sqrt(num)
+    print(f"{bsrm} | {rr} | Error : {error_calculation(bsrm,rr,error_is_percent_or_not)}")
