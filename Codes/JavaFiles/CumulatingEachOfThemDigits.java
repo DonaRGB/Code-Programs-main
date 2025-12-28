@@ -22,5 +22,6 @@ public class CumulatingEachOfThemDigits {
         int num = scn.nextInt();
         Digits d = new Digits(num);
         System.out.println("The digits are " + d.getDigitList());
+        scn.close();
     }
 }
