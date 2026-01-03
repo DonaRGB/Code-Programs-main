@@ -1,4 +1,4 @@
-import Math;
+import java.lang.Math;
 public class OOPSNumberTwo {
     private double[] data;
     private int dataSize;
@@ -19,7 +19,7 @@ public class OOPSNumberTwo {
     public double getLowStandardDeviation() {
         double mean = getAverage();
         double sumOfSquares = 0.0;
-        for (int i == 0; i < dataSize; i++) {
+        for (int i = 0; i < dataSize; i++) {
             double diff = data[i] - mean;
             sumOfSquares += diff * diff;
         }
