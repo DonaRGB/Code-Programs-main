@@ -7,7 +7,7 @@ public class Instantation {
         dataset.add(16);
         dataset.add(18);
         System.out.println("Standard Deviation : " + dataset.getLowStandardDeviation());
-        OOPSNumberTwo datasets = new OOPSNumberTwo[3];
+        OOPSNumberTwo[] datasets = new OOPSNumberTwo[3];
         OOPSNumberTwo ds1 = new OOPSNumberTwo();
         ds1.add(2);
         ds1.add(4);
@@ -22,6 +22,6 @@ public class Instantation {
         datasets[0] = ds1;
         datasets[1] = ds2;
         datasets[2] = ds3;
-        System.out.println("Average of Averages : " + datasets.calculateAverage());
+        System.out.println("Average of Averages : " + OOPSNumberTwo.calculateAverage(datasets));
     }
 }
