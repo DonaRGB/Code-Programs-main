@@ -9,13 +9,13 @@ public class Spannerator {
         for (int i = 0; i < n; i++) {
             arr[i] = scn.nextInt();
         }
-        int max = -2147483647;
+        int max = Integer.MIN_VALUE;
         for (int i = 0; i < n; i++) {
             if (max < arr[i]) {
                 max = arr[i];
             }
         }
-        int min = 2147483647;
+        int min = Integer.MAX_VALUE;
         for (int i = 0; i < n; i++) {
             if (max > arr[i]) {
                 min = arr[i];
