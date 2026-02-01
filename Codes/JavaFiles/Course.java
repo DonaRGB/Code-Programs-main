@@ -1,4 +1,4 @@
-public class Course {
+class Course {
     private String name;
     private int credits;
     private double grade;
