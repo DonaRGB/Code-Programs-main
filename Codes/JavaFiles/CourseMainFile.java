@@ -15,8 +15,8 @@ class Student {
         courses.remove(c);
     }
     public double getGPA() {
-        if (courses.isEmpty()) return 0.0;
-        double total;
+        if (courses.isEmpty()) {return 0.0;}
+        double total = 0.0;
         for (Course cou : courses) {
             total += cou.getGrade();
         }
