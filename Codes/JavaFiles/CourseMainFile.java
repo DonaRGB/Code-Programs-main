@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 class Course {
     private String name;
-    private int credits;
+    private double credits;
     private double grade;
 
-    public Course(String name, int credits) {
+    public Course(String name, double credits) {
         this.name = name;
         this.credits = credits;
     }
@@ -17,7 +17,7 @@ class Course {
         return grade;
     }
 
-    public int getCredits() {
+    public double getCredits() {
         return credits;
     }
 
