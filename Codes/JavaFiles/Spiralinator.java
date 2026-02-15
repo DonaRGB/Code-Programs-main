@@ -18,28 +18,31 @@ public class Spiralinator {
                 arr[i][j] = scn.nextInt();
             }
         }
-        int min = 0;
-        int max = 6;
-        int rmx = nr - 1;
-        int cmx = nc - 1;
-        int count = 0;
+        int t = 0;
+        int b = nr - 1;
+        int l = 0;
+        int r = nc - 1;
         System.out.println("Spiral order traversal of the array :");
-        while (count < nr + nc) {
-            for (int c = min; c <= max && count < nr + nc; c++) {
-                System.out.println(arr[c][count] + " ");
-                count++;
+        while (t <= b && l <= r) {
+            for (int i = l; i <= r; i++) {
+                System.out.print(arr[t][i] + " ");
             }
-            for (int r = min; r <= max && count < nr + nc; r++) {
-                System.out.println(arr[r][rmx - count] + " ");
-                count++;
+            t++;
+            for (int i = t; i <= b; i++) {
+                System.out.print(arr[i][r] + " ");
             }
-            for (int c = max; c >= min && count < nr + nc; c--) {
-                System.out.println(arr[cmx][c] + " ");
-                count++;
+            r--;
+            if (t <= b) {
+                for (int i = r; i >= l; i--) {
+                    System.out.print(arr[b][i] + " ");
+                }
+                b--;
             }
-            for (int r = max; r >= min && count < nr + nc; r--) {
-                System.out.println(arr[r][min + count] + " ");
-                count++;
+            if (l <= r) {
+                for (int i = b; i >= t; i--) {
+                    System.out.print(arr[i][l] + " ");
+                }
+                l++;
             }
         }
         scn.close();
