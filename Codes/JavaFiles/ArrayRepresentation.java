@@ -2,9 +2,9 @@ import java.util.Scanner;
 public class ArrayRepresentation {
     public static void main(String[] args) {
         Scanner scn = new Scanner(System.in);
-        System.out.println("Enter the numbr of rows :");
+        System.out.println("Enter the number of rows :");
         int nr = scn.nextInt();
-        System.out.println("Enter the numeber of columns :");
+        System.out.println("Enter the number of columns :");
         int nc = scn.nextInt();
         int[][] arr = new int[nr][nc];
         System.out.println("Enter the elements in the array :");
