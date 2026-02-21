@@ -1,5 +1,7 @@
 import java.util.Scanner;
 public class SaddlePointalizer {
+    public static final String RESET = "\u001B[0m";
+    public static final String COLORS = "\u001B[1m\u001B[3m\u001B[38;5;208m";
     public static void main(String[] args) {
         Scanner scn = new Scanner(System.in);
         System.out.println("Enter the size of the matrix (n * n) :");
@@ -44,11 +46,11 @@ public class SaddlePointalizer {
         if (!saddleFound) {
             System.out.println("No saddle points found.");
         }
-        System.out.println("\nMatrix with highlighted saddle points (enclosed in brackets []) :");
+        System.out.println("\nMatrix with highlighted saddle points (enclosed in brackets [] and highlighted orange) :");
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 if (arr[i][j] == rmin[i] && arr[i][j] == cmax[j]) {
-                    System.out.print("[" + arr[i][j] + "]\t");
+                    System.out.print(COLORS + "[" + arr[i][j] + "]" + RESET + "\t");
                 } else {
                     System.out.print(arr[i][j] + "\t");
                 }
