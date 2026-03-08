@@ -8,7 +8,7 @@ def record_audio():
     window.update()
     audio = sd.rec(int(duration * sample_rate),samplerate = sample_rate,channels = 2)
     sd.wait()
-    wr("output.wav",sample_rate,audio)
+    wr(r"C:\Users\user\Desktop\Code-Programs-main\Outputs\output.wav",sample_rate,audio)
     status_label.config(text = "Recording saved as output.wav")
 window = tk.Tk()
 window.title("Voice Recorder")
