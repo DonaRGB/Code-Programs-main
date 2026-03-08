@@ -332,7 +332,7 @@ def error_calculation(value_gotten,true_value,is_percentage = True):
     if is_percentage:
         return str(error_value * 100) + "%"
     else:
-        return error_value
+        return str(error_value)
 def test_babylonian_method(num,error_is_percent_or_not = True):
     from math import sqrt as sqrt
     bsrm = babylonian_square_root_method(num)
