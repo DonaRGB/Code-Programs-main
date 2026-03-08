@@ -306,7 +306,7 @@ def absolute_value(value):
         return value
     else:
         return value * -1
-def babylonian_square_root_method(root,estimation_assurance = 5):
+def babylonian_square_root_method(root,estimation_assurance = 100):
     n = 1
     while n*n < root:
         n += 1
