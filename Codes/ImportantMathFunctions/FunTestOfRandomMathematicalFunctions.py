@@ -527,9 +527,20 @@ def decimal_to_sexagesimal(dec_num):
         sexagesimal_str = str(remainder) + (":" if sexagesimal_str else "") + sexagesimal_str
         dec_num //= 60
     return sexagesimal_str
-def base_conversion(num_str, from_base, to_base):
-    if not (2 <= from_base <= 64) or not (2 <= to_base <= 64):
-        raise ValueError("Base must be between 2 and 64.")
+from enum import Enum as Enum
+class Base(Enum):
+    BINARY = 2
+    OCTAL = 8
+    DECIMAL = 10
+    HEXADECIMAL = 16
+    BASE36 = 36
+    DUODECIMAL = 12
+    BASE64 = 64
+    ALPHANUMERIC = 62
+    SEXAGESIMAL = 60
+def base_conversion(num_str, from_base : Base, to_base : Base):
+    if not (Base.BINARY <= from_base <= Base.SEXAGESIMAL) or not (Base.BINARY <= to_base <= Base.SEXAGESIMAL):
+        raise ValueError("Base must be between 2 and 60.")
     baseDigits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_"
     # Convert from the original base to decimal
     decimal = 0
