@@ -410,3 +410,123 @@ def dec_to_bin(decNum:int):
         result = str(decNum % 2) + result
         decNum //= 2
     return result
+def hexadecimal_to_decimal(hex_str):
+    hexDigits = "0123456789ABCDEF"
+    hex_str = hex_str.upper()
+    decimal = 0
+    for i,digit in enumerate(reversed(hex_str)):
+        value = hexDigits.index(digit)
+        decimal += value * (16 ** i)
+    return decimal
+def decimal_to_hexadecimal(dec_num):
+    if dec_num == 0:
+        return "0"
+    hexDigits = "0123456789ABCDEF"
+    hex_str = ""
+    while dec_num > 0:
+        remainder = dec_num % 16
+        hex_str = hexDigits[remainder] + hex_str
+        dec_num //= 16
+    return hex_str
+def octal_to_decimal(octal_num):
+    decimal = 0
+    for i,digit in enumerate(reversed(str(octal_num))):
+        decimal += str_to_int(digit) * (8 ** i)
+    return decimal
+def decimal_to_octal(dec_num):
+    if dec_num == 0:
+        return "0"
+    octal_str = ""
+    while dec_num > 0:
+        remainder = dec_num % 8
+        octal_str = str(remainder) + octal_str
+        dec_num //= 8
+    return str_to_int(octal_str)
+def base36_to_decimal(base36_str):
+    base36Digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    base36_str = base36_str.upper()
+    decimal = 0
+    for i,digit in enumerate(reversed(base36_str)):
+        value = base36Digits.index(digit)
+        decimal += value * (36 ** i)
+    return decimal
+def decimal_to_base36(dec_num):
+    if dec_num == 0:
+        return "0"
+    base36Digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    base36_str = ""
+    while dec_num > 0:
+        remainder = dec_num % 36
+        base36_str = base36Digits[remainder] + base36_str
+        dec_num //= 36
+    return str_to_int(base36_str)
+def duodecimal_to_decimal(duodecimal_str):
+    duodecimalDigits = "0123456789AB"
+    duodecimal_str = duodecimal_str.upper()
+    decimal = 0
+    for i,digit in enumerate(reversed(duodecimal_str)):
+        value = duodecimalDigits.index(digit)
+        decimal += value * (12 ** i)
+    return decimal
+def decimal_to_duodecimal(dec_num):
+    if dec_num == 0:
+        return "0"
+    duodecimalDigits = "0123456789AB"
+    duodecimal_str = ""
+    while dec_num > 0:
+        remainder = dec_num % 12
+        duodecimal_str = duodecimalDigits[remainder] + duodecimal_str
+        dec_num //= 12
+    return str_to_int(duodecimal_str)
+def base64_to_decimal(base64_str):
+    base64Digits = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_"
+    decimal = 0
+    for i,digit in enumerate(reversed(base64_str)):
+        value = base64Digits.index(digit)
+        decimal += value * (64 ** i)
+    return decimal
+def decimal_to_base64(dec_num):
+    if dec_num == 0:
+        return "0"
+    base64Digits = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_"
+    base64_str = ""
+    while dec_num > 0:
+        remainder = dec_num % 64
+        base64_str = base64Digits[remainder] + base64_str
+        dec_num //= 64
+    return str_to_int(base64_str)
+def alphanumberic_to_decimal(alphanum_str):
+    alphanumDigits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+    decimal = 0
+    for i,digit in enumerate(reversed(alphanum_str)):
+        value = alphanumDigits.index(digit)
+        decimal += value * (62 ** i)
+    return decimal
+def decimal_to_alphanumberic(dec_num):
+    if dec_num == 0:
+        return "0"
+    alphanumDigits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+    alphanum_str = ""
+    while dec_num > 0:
+        remainder = dec_num % 62
+        alphanum_str = alphanumDigits[remainder] + alphanum_str
+        dec_num //= 62
+    return str_to_int(alphanum_str)
+def base_conversion(num_str, from_base, to_base):
+    if not (2 <= from_base <= 64) or not (2 <= to_base <= 64):
+        raise ValueError("Base must be between 2 and 64.")
+    baseDigits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_"
+    # Convert from the original base to decimal
+    decimal = 0
+    for i,digit in enumerate(reversed(num_str)):
+        value = baseDigits.index(digit)
+        decimal += value * (from_base ** i)
+    # Convert from decimal to the target base
+    if decimal == 0:
+        return "0"
+    target_str = ""
+    while decimal > 0:
+        remainder = decimal % to_base
+        target_str = baseDigits[remainder] + target_str
+        decimal //= to_base
+    return target_str
