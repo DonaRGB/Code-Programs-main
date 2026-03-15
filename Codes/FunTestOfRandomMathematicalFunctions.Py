@@ -27,7 +27,7 @@ def sm():
             else:
                 print(j)
 #how to check for existing files for cv2.imwrite()
-def guf(bp):
+def generate_used_filenames(bp):
     from pathlib import Path
     b = Path(bp)
     i = 1
@@ -36,7 +36,7 @@ def guf(bp):
         nwp = b.with_name(f"{b.stem}_{i}{b.suffix}")
         i += 1
     return str(nwp)
-def dsa(d):
+def date_ordinal_ender(d):
     de = str(d)[-1]
     if de == "1":
         return f"{d}st"
@@ -46,11 +46,11 @@ def dsa(d):
         return f"{d}rd"
     else:
         return f"{d}th"
-def tsf(fn):
+def time_ending_filename_generator(fn):
     from datetime import datetime as dt
     from pathlib import Path
     nwfn = Path(fn)
-    date_time = dt.now().strftime(f"%A {dsa(dt.now().day)} %B %Y - %I:%M:%S %p")
+    date_time = dt.now().strftime(f"%A {date_ordinal_ender(dt.now().day)} %B %Y - %I:%M:%S %p")
     return str(f"{nwfn.stem}_{date_time}{nwfn.suffix}")
 import os
 ip = os.path.join(os.path.dirname(os.path.abspath(__file__)),"..","Pictures","test pic.jpg")
@@ -174,7 +174,7 @@ def show_nth_prime():
     except ValueError as e:
         raise TypeError(f"Expected int, got {type(num).__name__} instead.")
     prime = nth_prime(num)
-    term = dsa(num)
+    term = date_ordinal_ender(num)
     print(f"The {term} prime is {prime}.")
     return
 from typing import Union as U
@@ -195,7 +195,6 @@ def multiply_all(*args:U[int,float,Decimal,Fraction]):
             raise TypeError(f"Expected Real, got {type(i).__name__} instead.")
         the_product = i * the_product
     return the_product
-import numbers
 def lcm(*args):
     nums = []
     for arg in args:
@@ -338,3 +337,76 @@ def test_babylonian_method(num,error_is_percent_or_not = True):
     bsrm = babylonian_square_root_method(num)
     rr = sqrt(num)
     print(f"{bsrm} | {rr} | Error : {error_calculation(bsrm,rr,error_is_percent_or_not)}")
+def str_to_int(strNum):
+    number_string_list = ["0","1","2","3","4","5","6","7","8","9"]
+    if type(strNum) == int:
+        return strNum
+    strNum = str(strNum)
+    for c in strNum:
+        if c not in number_string_list:
+            raise Exception("Cannot have any characters other than numbers")
+    intNum = 0
+    t = 0
+    for i in strNum:
+        intNum *= 10
+        t = 0
+        if i == "0":
+            t = 0
+        elif i == "1":
+            t = 1
+        elif i == "2":
+            t = 2
+        elif i == "3":
+            t = 3
+        elif i == "4":
+            t = 4
+        elif i == "5":
+            t = 5
+        elif i == "6":
+            t = 6
+        elif i == "7":
+            t = 7
+        elif i == "8":
+            t = 8
+        else:
+            t = 9
+        intNum += t
+    return intNum
+def comma_separation_in_numbers_function(num):
+    num = str(num)
+    if num[0] == "-":
+        sign = "-"
+        num = num[1:]
+    else:
+        sign = ""
+    if "." in num:
+        decpart = num.split(".")[1]
+        num = num.split(".")[0]
+    else:
+        decpart = ""
+    revnum = num[::-1]
+    newnum = ""
+    for i in range(len(revnum)):
+        if i%3 == 0 and i != 0:
+            newnum += ","
+        newnum += revnum[i]
+    return sign + newnum[::-1] + (("." + decpart) if decpart else "")
+def bin_to_dec(binNum:int):
+    for i in str(binNum):
+        if str_to_int(i) not in [0,1]:
+            raise Exception("Base 2 does not have any other digit other than 0 or 1!")
+    strt = str(binNum)
+    result = 0
+    l = len(strt)
+    for idx in range(l - 1, -1, -1):
+        #print(str_to_int(strt[idx]) * (2 ** (l - idx - 1)))
+        result += str_to_int(strt[idx]) * (2 ** (l - idx - 1))
+    return result
+def dec_to_bin(decNum:int):
+    if decNum == 0:
+        return "0"
+    result = ""
+    while decNum > 0:
+        result = str(decNum % 2) + result
+        decNum //= 2
+    return result

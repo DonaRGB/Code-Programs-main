@@ -118,4 +118,4 @@ def int_to_roman(intInput:int):
     return strRoman
 #from random import randint as ri
 #a = ri(1,3999)
-#print(f"{a} -> {int_to_roman(a)}")
+#print(f"{a} -> {int_to_roman(a)}")f"{place[0]}{roms[placer - 1][0]}"
