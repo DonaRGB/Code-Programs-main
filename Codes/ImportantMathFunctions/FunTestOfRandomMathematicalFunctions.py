@@ -512,6 +512,21 @@ def decimal_to_alphanumberic(dec_num):
         alphanum_str = alphanumDigits[remainder] + alphanum_str
         dec_num //= 62
     return str_to_int(alphanum_str)
+def sexagesimal_to_decimal(sexagesimal_str):
+    parts = list(map(int, sexagesimal_str.split(":")))
+    decimal = 0
+    for i, part in enumerate(reversed(parts)):
+        decimal += part * (60 ** i)
+    return decimal
+def decimal_to_sexagesimal(dec_num):
+    if dec_num == 0:
+        return "0"
+    sexagesimal_str = ""
+    while dec_num > 0:
+        remainder = dec_num % 60
+        sexagesimal_str = str(remainder) + (":" if sexagesimal_str else "") + sexagesimal_str
+        dec_num //= 60
+    return sexagesimal_str
 def base_conversion(num_str, from_base, to_base):
     if not (2 <= from_base <= 64) or not (2 <= to_base <= 64):
         raise ValueError("Base must be between 2 and 64.")
