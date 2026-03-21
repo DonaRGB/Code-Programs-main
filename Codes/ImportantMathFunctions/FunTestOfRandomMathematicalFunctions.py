@@ -527,6 +527,26 @@ def decimal_to_sexagesimal(dec_num):
         sexagesimal_str = str(remainder) + (":" if sexagesimal_str else "") + sexagesimal_str
         dec_num //= 60
     return sexagesimal_str
+def decimal_to_base90(n):
+    BASE90_SYMBOLS = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!\"#$%&'()*+,-./:;<=>?@[\\]^_`"
+    BASE90 = len(BASE90_SYMBOLS)
+    
+    if n == 0:
+        return BASE90_SYMBOLS[0]
+    
+    result = ""
+    while n > 0:
+        n, rem = divmod(n, BASE90)
+        result = BASE90_SYMBOLS[rem] + result
+    return result
+def base90_to_decimal(s):
+    BASE90_SYMBOLS = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!\"#$%&'()*+,-./:;<=>?@[\\]^_`"
+    BASE90 = len(BASE90_SYMBOLS)
+    
+    decimal_value = 0
+    for char in s:
+        decimal_value = decimal_value * BASE90 + BASE90_SYMBOLS.index(char)
+    return decimal_value
 from enum import Enum as Enum
 class Base(Enum):
     BINARY = 2
@@ -538,21 +558,33 @@ class Base(Enum):
     BASE64 = 64
     ALPHANUMERIC = 62
     SEXAGESIMAL = 60
-def base_conversion(num_str, from_base : Base, to_base : Base):
-    if not (Base.BINARY <= from_base <= Base.SEXAGESIMAL) or not (Base.BINARY <= to_base <= Base.SEXAGESIMAL):
-        raise ValueError("Base must be between 2 and 60.")
-    baseDigits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_"
-    # Convert from the original base to decimal
-    decimal = 0
-    for i,digit in enumerate(reversed(num_str)):
-        value = baseDigits.index(digit)
-        decimal += value * (from_base ** i)
-    # Convert from decimal to the target base
-    if decimal == 0:
-        return "0"
-    target_str = ""
-    while decimal > 0:
-        remainder = decimal % to_base
-        target_str = baseDigits[remainder] + target_str
-        decimal //= to_base
-    return target_str
+    BASE90 = 90
+def convert_base(num_str, from_base:Base, to_base:Base):
+    base_conversion_functions = {
+        (Base.BINARY, Base.DECIMAL): bin_to_dec,
+        (Base.DECIMAL, Base.BINARY): dec_to_bin,
+        (Base.HEXADECIMAL, Base.DECIMAL): hexadecimal_to_decimal,
+        (Base.DECIMAL, Base.HEXADECIMAL): decimal_to_hexadecimal,
+        (Base.OCTAL, Base.DECIMAL): octal_to_decimal,
+        (Base.DECIMAL, Base.OCTAL): decimal_to_octal,
+        (Base.BASE36, Base.DECIMAL): base36_to_decimal,
+        (Base.DECIMAL, Base.BASE36): decimal_to_base36,
+        (Base.DUODECIMAL, Base.DECIMAL): duodecimal_to_decimal,
+        (Base.DECIMAL, Base.DUODECIMAL): decimal_to_duodecimal,
+        (Base.BASE64, Base.DECIMAL): base64_to_decimal,
+        (Base.DECIMAL, Base.BASE64): decimal_to_base64,
+        (Base.ALPHANUMERIC, Base.DECIMAL): alphanumberic_to_decimal,
+        (Base.DECIMAL, Base.ALPHANUMERIC): decimal_to_alphanumberic,
+        (Base.SEXAGESIMAL, Base.DECIMAL): sexagesimal_to_decimal,
+        (Base.DECIMAL, Base.SEXAGESIMAL): decimal_to_sexagesimal,
+        (Base.BASE90, Base.DECIMAL): base90_to_decimal,
+        (Base.DECIMAL, Base.BASE90): decimal_to_base90
+    }
+    
+    if from_base == to_base:
+        return num_str
+    
+    if (from_base, to_base) in base_conversion_functions:
+        return str(base_conversion_functions[(from_base, to_base)](num_str))
+    else:
+        raise ValueError(f"Conversion from {from_base} to {to_base} is not supported.")
