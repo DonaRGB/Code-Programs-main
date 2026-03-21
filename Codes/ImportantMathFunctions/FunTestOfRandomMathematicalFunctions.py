@@ -537,12 +537,11 @@ def decimal_to_base90(n):
     result = ""
     while n > 0:
         n, rem = divmod(n, BASE90)
-        result = BASE90_SYMBOLS[rem] + result
+        result += BASE90_SYMBOLS[rem]
     return result
 def base90_to_decimal(s):
     BASE90_SYMBOLS = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!\"#$%&'()*+,-./:;<=>?@[\\]^_`"
     BASE90 = len(BASE90_SYMBOLS)
-    
     decimal_value = 0
     for char in s:
         decimal_value = decimal_value * BASE90 + BASE90_SYMBOLS.index(char)
