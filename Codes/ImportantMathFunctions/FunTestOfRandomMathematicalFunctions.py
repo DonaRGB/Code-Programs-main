@@ -319,7 +319,7 @@ def babylonian_square_root_method(root,estimation_assurance = 100):
     b = root - (estimate_root ** 2)
     x = b / (2 * estimate_root)
     root_calc = estimate_root + x
-    for i in range(0,estimation_assurance):
+    for _ in range(0,estimation_assurance):
         estimate_root = root_calc
         b = root - (estimate_root ** 2)
         x = b / (2 * estimate_root)
