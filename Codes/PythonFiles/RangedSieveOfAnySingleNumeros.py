@@ -12,5 +12,6 @@ def sieve_print(num):
                 temp //= 10
             if rev == n:
                 print(n)
+            # this thing only prints palindromic primes!
 a = 3000
 sieve_print(a)
