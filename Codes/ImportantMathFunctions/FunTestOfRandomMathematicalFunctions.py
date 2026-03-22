@@ -605,3 +605,6 @@ def convert_base(num_str, from_base:Base, to_base:Base):
         return str(base_conversion_functions[(from_base, to_base)](num_str))
     else:
         raise ValueError(f"Conversion from {from_base} to {to_base} is not supported.")
+def palindrome_checker(num):
+    num_str = str(num)
+    return num_str == num_str[::-1]
