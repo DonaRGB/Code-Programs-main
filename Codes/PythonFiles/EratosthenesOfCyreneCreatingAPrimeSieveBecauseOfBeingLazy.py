@@ -6,8 +6,10 @@ def sieve_of_eratosthenes(num):
     while p * p <= num:
         if primes[p - start] == True:
             for i in range(p*p,num+1,p):
-                primes[i] = False
+                primes[i - start] = False
+                #print(i)
         p += 1
+    #print("\n-------------\n")
     for p in range(2,num+1):
         if primes[p - start]:
             actual_primes.append(p)
