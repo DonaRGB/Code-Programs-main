@@ -6,8 +6,7 @@ def is_prime(num : int):
             if num % i == 0:
                 return False
         return True
-    else:
-        return False
+    return False
 def double_digit_primes():
     for num in range(10,100):
         if is_prime(num):
