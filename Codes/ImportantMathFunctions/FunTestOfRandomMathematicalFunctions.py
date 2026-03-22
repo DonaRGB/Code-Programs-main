@@ -115,28 +115,20 @@ def sieve_of_eratosthenes(num):
 def is_prime(num : int):
     if not isinstance(num,int):
         raise TypeError(f"Expected int, got {type(num).__name__} instead.")
-    if num > 1:
-        for i in range(2,int(num/2)+1):
+    if not num < 2:
+        for i in range(2,int(num**0.5)+1):
             if num % i == 0:
                 return False
         return True
     else:
         return False
-def prime_number(order : int):
-    prime_list = []
-    prime = 1
-    while len(prime_list) != order:
-        prime += 1
-        if is_prime(prime):
-            prime_list.append(prime)
-    return prime_list[-1]
 def prime_fac(num : int):
     if not isinstance(num,int):
         raise TypeError(f"Expected int, got {type(num).__name__} instead.")
     prime = 1
     prime_factors = []
     store = num
-    dp = prime_number(prime)
+    dp = nth_prime(prime)
     prime_loop = True
     while True:
         prime_loop = True
@@ -148,7 +140,7 @@ def prime_fac(num : int):
             continue
         else:
             prime += 1
-            dp = prime_number(prime)
+            dp = nth_prime(prime)
             continue
     return prime_factors
 def ask_for_prime_fac():
