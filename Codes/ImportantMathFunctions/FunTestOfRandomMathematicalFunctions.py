@@ -324,6 +324,8 @@ def absolute_value(value):
     else:
         return value * -1
 def babylonian_square_root_method(root,estimation_assurance = 100):
+    if root == 0:
+        return 0
     n = 1
     while n*n < root:
         n += 1
@@ -344,6 +346,15 @@ def babylonian_square_root_method(root,estimation_assurance = 100):
         root_calc = estimate_root+x
         #print(f"Estimate Root : {estimate_root}\nRoot Calculated : {root_calc}\nX : {x}\n")
     return estimate_root
+def babylonian_square_root_tolerance(root,tolerance = 1e-10):
+    if root == 0:
+        return 0
+    x = root
+    while True:
+        next_x = (x+(root/x))/2
+        if absolute_value(next_x - x) < tolerance:
+            return next_x
+        x = next_x
 def error_calculation(value_gotten,true_value,is_percentage = True):
     error_value = absolute_value(value_gotten - true_value) / absolute_value(true_value)
     if is_percentage:
@@ -353,8 +364,10 @@ def error_calculation(value_gotten,true_value,is_percentage = True):
 def test_babylonian_method(num,error_is_percent_or_not = True):
     from math import sqrt as sqrt
     bsrm = babylonian_square_root_method(num)
+    bsrt = babylonian_square_root_tolerance(num)
     rr = sqrt(num)
     print(f"{bsrm} | {rr} | Error : {error_calculation(bsrm,rr,error_is_percent_or_not)}")
+    print(f"{bsrt} | {rr} | Error : {error_calculation(bsrt,rr,error_is_percent_or_not)}")
 def str_to_int(strNum):
     number_string_list = ["0","1","2","3","4","5","6","7","8","9"]
     if type(strNum) == int:
