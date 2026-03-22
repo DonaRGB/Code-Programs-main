@@ -97,41 +97,59 @@ def facrun():
 def color_generator():
     from random import randint as r
     return (r(0,255),r(0,255),r(0,255))
+def sieve_of_eratosthenes(num):
+    start = 2
+    primes = [True for _ in range(start,num + 1)]
+    actual_primes = []
+    p = 2
+    while p * p <= num:
+        if primes[p - start] == True:
+            for i in range(p*p,num+1,p):
+                primes[i] = False
+        p += 1
+    for p in range(2,num+1):
+        if primes[p - start]:
+            actual_primes.append(p)
+            #print(p)
+    return actual_primes
 def is_prime(num : int):
     if not isinstance(num,int):
         raise TypeError(f"Expected int, got {type(num).__name__} instead.")
-    divisibles = []
-    for i in range(1,num+2):
-        if num%i == 0:
-            divisibles.append(i)
-    if len(divisibles) == 2:
+    if num > 1:
+        for i in range(2,int(num/2)+1):
+            if num % i == 0:
+                return False
         return True
     else:
         return False
+def prime_number(order : int):
+    prime_list = []
+    prime = 1
+    while len(prime_list) != order:
+        prime += 1
+        if is_prime(prime):
+            prime_list.append(prime)
+    return prime_list[-1]
 def prime_fac(num : int):
     if not isinstance(num,int):
         raise TypeError(f"Expected int, got {type(num).__name__} instead.")
-    prime = 2
+    prime = 1
     prime_factors = []
     store = num
+    dp = prime_number(prime)
     prime_loop = True
     while True:
         prime_loop = True
         if store == 1:
             break
-        if store%prime == 0:
-            prime_factors.append(prime)
-            store = store/prime
+        if store%dp == 0:
+            prime_factors.append(dp)
+            store /= dp
             continue
         else:
             prime += 1
-            if is_prime(prime):
-                continue
-            else:
-                while prime_loop:
-                    prime += 1
-                    if is_prime(prime):
-                        prime_loop = False
+            dp = prime_number(prime)
+            continue
     return prime_factors
 def ask_for_prime_fac():
     try:
