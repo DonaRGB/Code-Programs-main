@@ -361,13 +361,29 @@ def test_babylonian_method(num,error_is_percent_or_not = True):
     print(f"{bsrm} | {rr} | Error : {error_calculation(bsrm,rr,error_is_percent_or_not)}")
     print(f"{bsrt} | {rr} | Error : {error_calculation(bsrt,rr,error_is_percent_or_not)}")
 def str_to_int(strNum):
-    number_string_list = ["0","1","2","3","4","5","6","7","8","9"]
-    if type(strNum) == int:
+    # but really this can be put with any number
+    number_string_list = ["0","1","2","3","4","5","6","7","8","9","-","."]
+    if type(strNum) in [int, float]:
         return strNum
     strNum = str(strNum)
+    if strNum[0] == "-":
+        if strNum.count("-") > 1:
+            raise Exception("Cannot have more than one negative sign.")
+        sign = -1
+        strNum = strNum[1:]
+    else:
+        sign = 1
+    if strNum.count(".") > 1:
+        raise Exception("Cannot have more than one decimal point.")
     for c in strNum:
         if c not in number_string_list:
             raise Exception("Cannot have any characters other than numbers")
+    decimal_part = 0
+    for i in range(-1*(len(strNum)-1),-1,-1):
+        if strNum[i] == ".":
+            decimal_part = len(strNum) - i - 1
+            strNum = strNum[:i] + strNum[i+1:]
+            break
     intNum = 0
     t = 0
     for i in strNum:
@@ -391,10 +407,10 @@ def str_to_int(strNum):
             t = 7
         elif i == "8":
             t = 8
-        else:
+        elif i == "9":
             t = 9
         intNum += t
-    return intNum
+    return (intNum * sign) / (10 ** decimal_part)
 def comma_separation_in_numbers_function(num):
     num = str(num)
     if num[0] == "-":
@@ -550,25 +566,57 @@ def decimal_to_sexagesimal(dec_num):
         sexagesimal_str = str(remainder) + (":" if sexagesimal_str else "") + sexagesimal_str
         dec_num //= 60
     return sexagesimal_str
-def decimal_to_base90(n):
-    BASE90_SYMBOLS = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!\"#$%&'()*+,-./:;<=>?@[\\]^_`"
-    BASE90 = len(BASE90_SYMBOLS)
-    
-    if n == 0:
-        return BASE90_SYMBOLS[0]
-    
-    result = ""
-    while n > 0:
-        n, rem = divmod(n, BASE90)
-        result += BASE90_SYMBOLS[rem]
-    return result
 def base90_to_decimal(s):
-    BASE90_SYMBOLS = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!\"#$%&'()*+,-./:;<=>?@[\\]^_`"
-    BASE90 = len(BASE90_SYMBOLS)
-    decimal_value = 0
-    for char in s:
-        decimal_value = decimal_value * BASE90 + BASE90_SYMBOLS.index(char)
-    return decimal_value
+    symbols = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!\"#$%&'()*+,-./:;<=>?@[\\]^_`"
+    base = len(symbols)
+    negative = False
+    if s.startswith("|"):
+        negative = True
+        s = s[1:]
+    if "{" in s:
+        integer_part, fractional_part = s.split("{")
+        fractional_part = fractional_part.rstrip("}")
+    else:
+        integer_part, fractional_part = s, ""
+    decimal = 0
+    for i, char in enumerate(reversed(integer_part)):
+        decimal += symbols.index(char) * (base ** i)
+    decimal = 0
+    for i, char in enumerate(reversed(integer_part)):
+        decimal += symbols.index(char) * (base ** i)
+    for i, char in enumerate(fractional_part, start=1):
+        decimal += symbols.index(char) / (base ** i)
+def decimal_to_base90(num,precision = 100):
+    symbols = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!\"#$%&'()*+,-./:;<=>?@[\\]^_`"
+    base = len(symbols)
+    negative = False
+    if num < 0:
+        negative = True
+        num = -num
+    integer_part = int(num)
+    fractional_part = num - integer_part
+    if integer_part == 0:
+        int_str = symbols[0]
+    else:
+        int_str = ""
+        n = integer_part
+        while n > 0:
+            n, rem = divmod(n, base)
+            int_str = symbols[rem] + int_str
+    if fractional_part > 0:
+        frac_str = ""
+        f = fractional_part
+        for _ in range(precision):
+            f *= base
+            digit = int(f)
+            frac_str += symbols[digit]
+            f -= digit
+        result = int_str + "{" + frac_str + "}"
+    else:
+        result = int_str
+    if negative:
+        result = "|" + result
+    return result
 from enum import Enum as Enum
 class Base(Enum):
     BINARY = 2
