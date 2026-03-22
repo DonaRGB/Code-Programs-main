@@ -613,3 +613,15 @@ def convert_base(num_str, from_base:Base, to_base:Base):
 def palindrome_checker(num):
     num_str = str(num)
     return num_str == num_str[::-1]
+def number_of_n_digit_primes(n : int):
+    if n < 1:
+        raise ValueError("Number of digits must be at least 1.")
+    lower_bound = 10**(n-1)
+    upper_bound = 10**n
+    count = 0
+    n_digit_primes = []
+    for num in range(lower_bound, upper_bound + 1):
+        if is_prime(num):
+            n_digit_primes.append(num)
+            print(num)
+    return n_digit_primes
