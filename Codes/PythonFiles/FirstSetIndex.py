@@ -20,7 +20,14 @@ def str_to_int(strNum):
         sign = -1
         strNum = strNum[1:]
     else:
+        if strNum.count("-") >= 1:
+            raise Exception("Negative sign at the wrong place.")
         sign = 1
+    if strNum[0] == ".":
+        strNum = "0" + strNum
+    if strNum[1] == ".":
+        if strNum[0] not in number_string_list[0:9]:
+            raise Exception("Cannot have any characters other than numbers")
     if strNum.count(".") > 1:
         raise Exception("Cannot have more than one decimal point.")
     for c in strNum:
