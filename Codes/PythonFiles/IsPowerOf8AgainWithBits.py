@@ -1,0 +1,17 @@
+def isPowerOf8(n):
+    if n == 0:
+        return False
+    count = 0
+    if n & (~(n - 1)) == n:
+        while n > 1:
+            n >>= 1
+            count += 1
+        if count % 3 == 0:
+            return True
+        return False
+    return False
+num = int(input("Enter a nunber : "))
+if isPowerOf8(num):
+    print(num,"is a power of 8.")
+else:
+    print(num,"is not a power of 8.")
