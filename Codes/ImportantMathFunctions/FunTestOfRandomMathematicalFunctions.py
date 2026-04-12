@@ -448,7 +448,7 @@ def dec_to_bin(decNum:int):
     while decNum > 0:
         result = str(decNum % 2) + result
         decNum //= 2
-    return result
+    return str_to_int(result)
 def hexadecimal_to_decimal(hex_str):
     hexDigits = "0123456789ABCDEF"
     hex_str = hex_str.upper()
