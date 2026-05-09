@@ -6,7 +6,7 @@ def ifPower2(n):
     if n % 2 == 0:
         return ifPower2(n/2)
     return False
-n = int(input("Input a number :"))
+n = int(input("Input a number : "))
 if ifPower2(n):
     print(n,"is a power of 2.")
 else:
