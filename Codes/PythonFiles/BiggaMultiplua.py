@@ -21,5 +21,5 @@ print("Original Array :",arr)
 z = largestProduct(arr)
 a = z[0]
 b = z[1]
-print(f"Numbers that make the largest product are : {a} * {b}")
+print(f"Numbers that make the largest product : {a} * {b}")
 print("Largest Product :",a*b)
