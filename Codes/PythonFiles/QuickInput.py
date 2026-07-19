@@ -17,4 +17,4 @@ a = []
 for i in range(n):
     a.append(int(input("Enter the {} element : ".format(i+1))))
 quickSort(a,0,n-1)
-print("\nThe sorted array is : ",a)
+print("\nThe sorted array is :",a)
