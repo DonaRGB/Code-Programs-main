@@ -19,7 +19,7 @@ def unionOfArr(a,b):
         print(b[j], end = " ")
         j += 1
 from random import randint as ri
-x = [ri(1,10) for _ in range(5)]
-y = [ri(1,10) for _ in range(ri(4,6))]
+x = [ri(1,10) for _ in range(5)].sort()
+y = [ri(1,10) for _ in range(ri(4,6))].sort()
 print(f"Original arrays :\n - a : {x}\n - b : {y}\n")
 print("Union of a and b :",unionOfArr(x,y))
