@@ -672,3 +672,36 @@ def number_of_n_digit_primes(n : int):
             n_digit_primes.append(num)
             print(num)
     return n_digit_primes
+def is_coprime(a,b):
+    fa = factors_of_a_number(a)
+    fb = factors_of_a_number(b)
+    try:
+        fa = fa[1:]
+        fb = fb[1:]
+    except IndexError:
+        pass
+    for i in fa:
+        for j in fb:
+            if i == j:
+                return False
+    return True
+def sign_getter(n):
+    return n / abs(n)
+def unique_numbers_in_a_list_generator(start_range,end_range):
+    from random import randint as ri
+    nl = []
+    length = 1
+    if start_range == end_range:
+        return [start_range]
+    elif start_range < end_range:
+        length += end_range - start_range
+    else:
+        length += start_range - end_range
+    i = 0
+    while i < length:
+        a = ri(start_range,end_range)
+        while a in nl:
+            a = ri(start_range,end_range)
+        nl.append(a)
+        i += 1
+    return nl
