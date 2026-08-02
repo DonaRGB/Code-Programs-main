@@ -7,7 +7,7 @@ def rotate(a):
     for i in range(size - 1):
         a[i] = a[i + 1]
     a[size - 1] = t
-def ordinal_number(d):
+def ordinal_number(d:int):
     de = str(d)[-1]
     if len(str(d)) > 1 and str(d)[-2] == "1":
         return f"{d}th"

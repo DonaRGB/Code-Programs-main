@@ -36,6 +36,18 @@ def generate_used_filenames(bp):
         nwp = b.with_name(f"{b.stem}_{i}{b.suffix}")
         i += 1
     return str(nwp)
+def ordinal_number_converter(d:int):
+    de = str(d)[-1]
+    if len(str(d)) > 1 and str(d)[-2] == "1":
+        return f"{d}th"
+    if de == "1":
+        return f"{d}st"
+    elif de == "2":
+        return f"{d}nd"
+    elif de == "3":
+        return f"{d}rd"
+    else:
+        return f"{d}th"
 def date_ordinal_ender(d):
     de = str(d)[-1]
     if de == "1":
