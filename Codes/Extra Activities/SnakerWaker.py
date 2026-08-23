@@ -59,12 +59,13 @@ screen.onkey(go_down,"Down")
 screen.onkey(go_left,"Left")
 screen.onkey(go_right,"Right")
 cols = int(WIDTH//2) - size
-cels_size = 20
+cels_size = int(20 * scale_factor)
 cels = (int(HEIGHT//2) - 1) // cels_size
 while True:
     screen.update()
     if h.xcor() > cols or h.xcor() < -cols or h.ycor() > cols or h.ycor() < -cols:
         print("Game Over! Final Score :",score)
+        screen.bye()
         break
     if h.distance(f) < cels_size:
         x = random.randint(-cels,cels) * cels_size
@@ -74,6 +75,7 @@ while True:
         new_seg.shape(h_shape)
         new_seg.color("green")
         new_seg.penup()
+        new_seg.goto(-10000,-10000)
         segs.append(new_seg)
         score += 1
     for i in range(len(segs)-1,0,-1):
@@ -84,3 +86,11 @@ while True:
         x = h.xcor()
         y = h.ycor()
         segs[0].goto(x,y)
+    move()
+    for s in segs:
+        if s.distance(h) < cels_size // 2:
+            print("Game Over! Final Score :",score)
+            screen.bye()
+            quit()
+    time.sleep(0.1)
+screen.mainloop()
