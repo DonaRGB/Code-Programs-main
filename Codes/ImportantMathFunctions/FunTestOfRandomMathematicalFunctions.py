@@ -48,8 +48,10 @@ def ordinal_number_converter(d:int):
         return f"{d}rd"
     else:
         return f"{d}th"
-def date_ordinal_ender(d):
+def date_ordinal_ender(d:int):
     de = str(d)[-1]
+    if len(str(d)) > 1 and str(d)[-2] == "1":
+        return f"{d}th"
     if de == "1":
         return f"{d}st"
     elif de == "2":

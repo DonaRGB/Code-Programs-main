@@ -1,1 +1,1 @@
-from .FunTestOfRandomMathematicalFunctions import *
+from .FunctionMachine import *
